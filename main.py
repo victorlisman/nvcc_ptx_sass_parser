@@ -9,7 +9,6 @@ from utils import coalesce_addresses, analyze_stride, estimate_footprint
 from symbolic_evaluator import evaluate_symbolic
 
 def main():
-    # Load PTX from file
     parser = argparse.ArgumentParser(description="Symbolic PTX memory analyzer")
     parser.add_argument("ptx_file", help="Path to the .ptx file to analyze")
     parser.add_argument("--grid", type=int, default=4, help="Grid dimension (default: 4)")
@@ -18,26 +17,21 @@ def main():
     parser.add_argument("--json_out", type=str, default="output.json", help="Output JSON file (default: output.json)")
     args = parser.parse_args()
 
-    # Load PTX file
     with open(args.ptx_file, "r") as f:
         ptx_code = f.read()
 
-    # Parse to IR
     ir = parse_ptx_to_ir(ptx_code)
 
-    # Simulate kernel launch
     addresses = simulate_launch(ir, args.grid, args.block, args.base)
     accessess = addresses.copy()
     addresses = [a["address"] for a in addresses]
     footprint_info = estimate_footprint(addresses)
-    # Coalesce memory ranges
     ranges = coalesce_addresses(addresses)
     stride_info = analyze_stride(addresses)
     print("First 10 addresses:")
     for addr in addresses[:10]:
         print(f"0x{addr:x}")
 
-    # Output
     symbolic_expr = evaluate_symbolic(ir)
 
     warp_stats = analyze_warp_usage(accessess)

@@ -14,7 +14,7 @@ def parse_ptx_to_ir(ptx_code: str) -> List[Dict]:
     for line in lines:
         line = line.strip()
         if not line or line.startswith('//') or line.endswith(':'):
-            continue  # Skip comments, empty lines, labels
+            continue 
 
         tokens = re.split(r'\s+', line, maxsplit=1)
         if len(tokens) < 2:
@@ -53,7 +53,6 @@ def parse_ptx_to_ir(ptx_code: str) -> List[Dict]:
             ir.append({"op": op, "dst": dst, "src1": src1, "src2": src2})
 
         elif op.startswith("st.global"):
-            # Match format: [reg], value
             m = re.match(r"(.*)\[(.*?)\],\s*(\S+)", args)
             if m:
                 _, addr, val = m.groups()

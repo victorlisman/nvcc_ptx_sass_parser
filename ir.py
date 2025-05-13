@@ -1,6 +1,5 @@
 # ir.py
 
-# Manually defined IR for toy write kernel
 WRITE_KERNEL_IR = [
     {"op": "ld.param.u64", "dst": "rd1", "src": "out"},
     {"op": "cvta.to.global.u64", "dst": "rd2", "src": "rd1"},

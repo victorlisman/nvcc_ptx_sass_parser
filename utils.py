@@ -15,11 +15,11 @@ def coalesce_addresses(addresses: List[int], access_size: int = 4) -> List[Dict]
             ranges.append((start, prev + access_size))
             start = prev = addr
 
-    ranges.append((start, prev + access_size))  # Add last
+    ranges.append((start, prev + access_size))
 
     return [
         {
-            "address_range": f"0x{start:x} – 0x{end:x}",
+            "address_range": f"0x{start:x} - 0x{end:x}",
             "coalesced": True
         }
         for start, end in ranges
