@@ -4,6 +4,7 @@ import argparse
 import json
 import os 
 from parser import parse_ptx_to_ir
+from sass_parser import parse_sass_to_ir
 from simulator import simulate_launch, analyze_warp_usage
 from utils import coalesce_addresses, analyze_stride, estimate_footprint
 from symbolic_evaluator import evaluate_symbolic
@@ -20,8 +21,16 @@ def main():
     with open(args.ptx_file, "r") as f:
         ptx_code = f.read()
 
-    ir = parse_ptx_to_ir(ptx_code)
+    #ir = parse_ptx_to_ir(ptx_code)
+    ir = parse_sass_to_ir(ptx_code)
+    
+    #print("Parsed IR:")
+    #for instr in ir:
+    #   print(instr)
 
+    #print("Parsed PTX IR:")
+    #for instr in ir_ptx:
+    #    print(instr)
     addresses = simulate_launch(ir, args.grid, args.block, args.base)
     accessess = addresses.copy()
     addresses = [a["address"] for a in addresses]

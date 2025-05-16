@@ -14,10 +14,13 @@ def simulate_launch(ir, grid_dim_x, block_dim_x, base_address) -> List[Dict[str,
                 "ctaid.x": ctaid_x,
                 "ntid.x": block_dim_x,
                 "tid.x": tid_x,
-                "out": base_address
+                "out": base_address,
+                #"rd1": base_address,
+                #"rd2": base_address,
             }
-
+            #print("DEGUG: BASE:", base_address)
             address = None
+
             for instr in ir:
                 addr = evaluate_instruction(instr, regs)
                 if addr is not None:
@@ -34,6 +37,7 @@ def simulate_launch(ir, grid_dim_x, block_dim_x, base_address) -> List[Dict[str,
                     "address": address
                 })
 
+    #print(f"DEBUG: Accesses: {accesses[0]}")
     return accesses
 
 def analyze_warp_usage(accesses):

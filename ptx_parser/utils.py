@@ -6,8 +6,9 @@ def coalesce_addresses(addresses: List[int], access_size: int = 4) -> List[Dict]
     addresses = sorted(set(addresses))
     ranges = []
 
+    print("DEBUG: Address[0]: 0x{addresses[0]:x}")
     start = prev = addresses[0]
-
+    
     for addr in addresses[1:]:
         if addr == prev + access_size:
             prev = addr
