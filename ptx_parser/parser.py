@@ -59,3 +59,78 @@ def parse_ptx_to_ir(ptx_code: str) -> List[Dict]:
                 ir.append({"op": op, "addr": clean(addr), "val": clean(val)})
 
     return ir
+
+CMEM_OFFSETS = {                      
+    0x28: "out",                      
+    0x160: "out",          
+    0x0: "ntid.x",                
+}
+
+def _cmem_alias(offset: int) -> str:
+    """Translate c[0x0][offset] into a symbolic name."""
+    return CMEM_OFFSETS.get(offset, f"cmem_{offset:x}")
+
+def parse_sass_to_ir(sass_code: str) -> List[Dict]:
+    """
+    Very small, purpose-built SASS→IR mapper for the write kernel
+    (enough to prove out the pipeline; extend as you need).
+    """
+    ir: List[Dict] = []
+
+    for raw in sass_code.splitlines():
+        line = raw.split(';')[0]                 
+        line = re.sub(r'^\s*/\*.*?\*/\s*', "", line)  
+        line = line.strip()
+        if not line or line.startswith(('//', '.', 'arch', 'code', 'host',
+                                        'compile_size', '=', 'Function')):
+            continue
+
+        m = re.match(r'MOV\s+R(\d+),\s*c\[0x0\]\[0x([0-9a-f]+)\]', line, re.I)
+        if m:
+            dst = f"r{m.group(1)}"
+            src = _cmem_alias(int(m.group(2), 16))
+            ir.append({"op": "mov.u32", "dst": dst, "src": src})
+            continue
+
+        m = re.match(r'MOV\s+R(\d+),\s*0x([0-9a-f]+)', line, re.I)
+        if m:
+            ir.append({"op": "mov.u32",
+                       "dst": f"r{m.group(1)}",
+                       "src": int(m.group(2), 16)})
+            continue
+
+        m = re.match(r'S2R\s+R(\d+),\s*SR_(\w+)\.([A-Z]+)', line, re.I)
+        if m:
+            sr = f"{m.group(2).lower()}.{m.group(3).lower()}"
+            ir.append({"op": "mov.u32", "dst": f"r{m.group(1)}", "src": sr})
+            continue
+
+        m = re.match(r'IMAD\s+R(\d+),\s*R(\d+),\s*c\[0x0\]\[0x0\],\s*R(\d+)',
+                     line, re.I)
+        if m:
+            ir.append({"op": "mad.lo.s32",
+                       "dst": f"r{m.group(1)}",
+                       "src1": f"r{m.group(2)}",
+                       "src2": "ntid.x",
+                       "src3": f"r{m.group(3)}"})
+            continue
+
+        m = re.match(r'IMAD\.WIDE\s+R\d+,\s*R(\d+),\s*R(\d+),\s*c\[0x0\]\[0x160\]',
+                     line, re.I)
+        if m:
+            ir.extend([
+                {"op": "mul.wide.s32", "dst": "rd3",
+                 "src1": f"r{m.group(1)}", "src2": 4},
+                {"op": "add.s64", "dst": "rd4",
+                 "src1": "rd3", "src2": "out"}
+            ])
+            continue
+
+        m = re.match(r'STG[\.\w]*\s+\[R(\d+)\],\s*R(\d+)', line, re.I)
+        if m:
+            ir.append({"op": "st.global.u32",
+                       "addr": "rd4",
+                       "val": f"r{m.group(2)}"})
+            continue
+
+    return ir

@@ -19,7 +19,9 @@ def evaluate_instruction(instr, regs: Dict[str, Union[int, str]]):
     elif op.startswith("mad.lo.s32"):
         regs[instr["dst"]] = resolve(regs[instr["src1"]], regs) * resolve(regs[instr["src2"]], regs) + resolve(regs[instr["src3"]], regs)
     elif op.startswith("mul.wide.s32"):
-        regs[instr["dst"]] = resolve(regs[instr["src1"]], regs) * resolve(instr["src2"], regs)
+        src2 = instr["src2"]
+        src2_val = regs[src2] if isinstance(src2, str) else src2
+        regs[instr["dst"]] = regs[instr["src1"]] * src2_val
     elif op.startswith("add.s64"):
         regs[instr["dst"]] = resolve(regs[instr["src1"]], regs) + resolve(regs[instr["src2"]], regs)
     elif op.startswith("st.global"):

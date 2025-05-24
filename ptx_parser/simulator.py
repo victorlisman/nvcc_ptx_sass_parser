@@ -56,12 +56,15 @@ def analyze_warp_usage(accesses):
         )
         coalesced = check_warp_coalescing(threads)
 
+        start_addr = addresses[0]
+        end_anddr = addresses[-1]
+
         result.append({
             "blockIdx.x": block,
             "warp_id": warp,
             "num_threads": len(thread_ids),
             "fully_utilized": len(thread_ids) == 32,
-            "address_range": f"0x{addresses[0]:x} - 0x{addresses[-1] + 4:x}",
+            "address_range": f"0x{start_addr:08x} - 0x{end_anddr:08x}",
             "contiguous": contiguous,
             "coalesced": coalesced,
         })

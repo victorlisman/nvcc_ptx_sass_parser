@@ -20,7 +20,7 @@ def coalesce_addresses(addresses: List[int], access_size: int = 4) -> List[Dict]
 
     return [
         {
-            "address_range": f"0x{start:x} - 0x{end:x}",
+            "address_range": f"0x{start:08x} - 0x{end-4:08x}",
             "coalesced": True
         }
         for start, end in ranges
