@@ -1,0 +1,171 @@
+{
+    "kernel": "write(float*)-18100",
+    "grid_dim_x": 4,
+    "block_dim_x": 128,
+    "base_address": "0x7598bb800000",
+    "num_threads": 512,
+    "num_warps": 4,
+    "warp_stats": [
+        {
+            "blockIdx.x": 0,
+            "warp_id": 0,
+            "num_threads": 32,
+            "fully_utilized": true,
+            "address_range": "0x7598bb800000 - 0x7598bb80007c",
+            "contiguous": true,
+            "coalesced": true
+        },
+        {
+            "blockIdx.x": 0,
+            "warp_id": 1,
+            "num_threads": 32,
+            "fully_utilized": true,
+            "address_range": "0x7598bb800080 - 0x7598bb8000fc",
+            "contiguous": true,
+            "coalesced": true
+        },
+        {
+            "blockIdx.x": 0,
+            "warp_id": 2,
+            "num_threads": 32,
+            "fully_utilized": true,
+            "address_range": "0x7598bb800100 - 0x7598bb80017c",
+            "contiguous": true,
+            "coalesced": true
+        },
+        {
+            "blockIdx.x": 0,
+            "warp_id": 3,
+            "num_threads": 32,
+            "fully_utilized": true,
+            "address_range": "0x7598bb800180 - 0x7598bb8001fc",
+            "contiguous": true,
+            "coalesced": true
+        },
+        {
+            "blockIdx.x": 1,
+            "warp_id": 0,
+            "num_threads": 32,
+            "fully_utilized": true,
+            "address_range": "0x7598bb800200 - 0x7598bb80027c",
+            "contiguous": true,
+            "coalesced": true
+        },
+        {
+            "blockIdx.x": 1,
+            "warp_id": 1,
+            "num_threads": 32,
+            "fully_utilized": true,
+            "address_range": "0x7598bb800280 - 0x7598bb8002fc",
+            "contiguous": true,
+            "coalesced": true
+        },
+        {
+            "blockIdx.x": 1,
+            "warp_id": 2,
+            "num_threads": 32,
+            "fully_utilized": true,
+            "address_range": "0x7598bb800300 - 0x7598bb80037c",
+            "contiguous": true,
+            "coalesced": true
+        },
+        {
+            "blockIdx.x": 1,
+            "warp_id": 3,
+            "num_threads": 32,
+            "fully_utilized": true,
+            "address_range": "0x7598bb800380 - 0x7598bb8003fc",
+            "contiguous": true,
+            "coalesced": true
+        },
+        {
+            "blockIdx.x": 2,
+            "warp_id": 0,
+            "num_threads": 32,
+            "fully_utilized": true,
+            "address_range": "0x7598bb800400 - 0x7598bb80047c",
+            "contiguous": true,
+            "coalesced": true
+        },
+        {
+            "blockIdx.x": 2,
+            "warp_id": 1,
+            "num_threads": 32,
+            "fully_utilized": true,
+            "address_range": "0x7598bb800480 - 0x7598bb8004fc",
+            "contiguous": true,
+            "coalesced": true
+        },
+        {
+            "blockIdx.x": 2,
+            "warp_id": 2,
+            "num_threads": 32,
+            "fully_utilized": true,
+            "address_range": "0x7598bb800500 - 0x7598bb80057c",
+            "contiguous": true,
+            "coalesced": true
+        },
+        {
+            "blockIdx.x": 2,
+            "warp_id": 3,
+            "num_threads": 32,
+            "fully_utilized": true,
+            "address_range": "0x7598bb800580 - 0x7598bb8005fc",
+            "contiguous": true,
+            "coalesced": true
+        },
+        {
+            "blockIdx.x": 3,
+            "warp_id": 0,
+            "num_threads": 32,
+            "fully_utilized": true,
+            "address_range": "0x7598bb800600 - 0x7598bb80067c",
+            "contiguous": true,
+            "coalesced": true
+        },
+        {
+            "blockIdx.x": 3,
+            "warp_id": 1,
+            "num_threads": 32,
+            "fully_utilized": true,
+            "address_range": "0x7598bb800680 - 0x7598bb8006fc",
+            "contiguous": true,
+            "coalesced": true
+        },
+        {
+            "blockIdx.x": 3,
+            "warp_id": 2,
+            "num_threads": 32,
+            "fully_utilized": true,
+            "address_range": "0x7598bb800700 - 0x7598bb80077c",
+            "contiguous": true,
+            "coalesced": true
+        },
+        {
+            "blockIdx.x": 3,
+            "warp_id": 3,
+            "num_threads": 32,
+            "fully_utilized": true,
+            "address_range": "0x7598bb800780 - 0x7598bb8007fc",
+            "contiguous": true,
+            "coalesced": true
+        }
+    ],
+    "memory_events": [
+        {
+            "instruction": "st.global.u32",
+            "access_type": "write",
+            "access_size": 4,
+            "address_range": "0x7598bb800000 - 0x7598bb8007fc",
+            "coalesced": true,
+            "address_expr": "4 * ((ctaid.x * ntid.x + tid.x)) + out",
+            "stride": 4,
+            "pattern": "unit-strided",
+            "density": 1.0,
+            "footprint_bytes": 2048,
+            "used_bytes": 2048,
+            "wasted_bytes": 0,
+            "efficiency": 1.0
+        }
+    ]
+}

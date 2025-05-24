@@ -1,0 +1,16 @@
+MOV R1, c[0x0][0x28] ;
+@!PT SHFL.IDX PT, RZ, RZ, RZ, RZ ;
+S2R R2, SR_CTAID.X ;
+MOV R5, 0x4 ;
+MOV R7, 0x3f800000 ;
+S2R R3, SR_TID.X ;
+IMAD R2, R2, c[0x0][0x0], R3 ;
+IMAD.WIDE R2, R2, R5, c[0x0][0x160] ;
+STG.E.SYS [R2], R7 ;
+EXIT ;
+BRA 0xa0;
+NOP;
+NOP;
+NOP;
+NOP;
+NOP;

@@ -1,8 +1,8 @@
 {
-    "kernel": "vectoradd",
+    "kernel": "vecAdd(float*, float*, float*, int)-18290",
     "grid_dim_x": 4,
     "block_dim_x": 256,
-    "base_address": "0x76dbeb800000",
+    "base_address": "0x779bf7802000",
     "num_threads": 1024,
     "num_warps": 8,
     "warp_stats": [
@@ -11,7 +11,7 @@
             "warp_id": 0,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800000 - 0x76dbeb80007c",
+            "address_range": "0x779bf7802000 - 0x779bf780207c",
             "contiguous": true,
             "coalesced": true
         },
@@ -20,7 +20,7 @@
             "warp_id": 1,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800080 - 0x76dbeb8000fc",
+            "address_range": "0x779bf7802080 - 0x779bf78020fc",
             "contiguous": true,
             "coalesced": true
         },
@@ -29,7 +29,7 @@
             "warp_id": 2,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800100 - 0x76dbeb80017c",
+            "address_range": "0x779bf7802100 - 0x779bf780217c",
             "contiguous": true,
             "coalesced": true
         },
@@ -38,7 +38,7 @@
             "warp_id": 3,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800180 - 0x76dbeb8001fc",
+            "address_range": "0x779bf7802180 - 0x779bf78021fc",
             "contiguous": true,
             "coalesced": true
         },
@@ -47,7 +47,7 @@
             "warp_id": 4,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800200 - 0x76dbeb80027c",
+            "address_range": "0x779bf7802200 - 0x779bf780227c",
             "contiguous": true,
             "coalesced": true
         },
@@ -56,7 +56,7 @@
             "warp_id": 5,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800280 - 0x76dbeb8002fc",
+            "address_range": "0x779bf7802280 - 0x779bf78022fc",
             "contiguous": true,
             "coalesced": true
         },
@@ -65,7 +65,7 @@
             "warp_id": 6,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800300 - 0x76dbeb80037c",
+            "address_range": "0x779bf7802300 - 0x779bf780237c",
             "contiguous": true,
             "coalesced": true
         },
@@ -74,7 +74,7 @@
             "warp_id": 7,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800380 - 0x76dbeb8003fc",
+            "address_range": "0x779bf7802380 - 0x779bf78023fc",
             "contiguous": true,
             "coalesced": true
         },
@@ -83,7 +83,7 @@
             "warp_id": 0,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800400 - 0x76dbeb80047c",
+            "address_range": "0x779bf7802400 - 0x779bf780247c",
             "contiguous": true,
             "coalesced": true
         },
@@ -92,7 +92,7 @@
             "warp_id": 1,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800480 - 0x76dbeb8004fc",
+            "address_range": "0x779bf7802480 - 0x779bf78024fc",
             "contiguous": true,
             "coalesced": true
         },
@@ -101,7 +101,7 @@
             "warp_id": 2,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800500 - 0x76dbeb80057c",
+            "address_range": "0x779bf7802500 - 0x779bf780257c",
             "contiguous": true,
             "coalesced": true
         },
@@ -110,7 +110,7 @@
             "warp_id": 3,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800580 - 0x76dbeb8005fc",
+            "address_range": "0x779bf7802580 - 0x779bf78025fc",
             "contiguous": true,
             "coalesced": true
         },
@@ -119,7 +119,7 @@
             "warp_id": 4,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800600 - 0x76dbeb80067c",
+            "address_range": "0x779bf7802600 - 0x779bf780267c",
             "contiguous": true,
             "coalesced": true
         },
@@ -128,7 +128,7 @@
             "warp_id": 5,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800680 - 0x76dbeb8006fc",
+            "address_range": "0x779bf7802680 - 0x779bf78026fc",
             "contiguous": true,
             "coalesced": true
         },
@@ -137,7 +137,7 @@
             "warp_id": 6,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800700 - 0x76dbeb80077c",
+            "address_range": "0x779bf7802700 - 0x779bf780277c",
             "contiguous": true,
             "coalesced": true
         },
@@ -146,7 +146,7 @@
             "warp_id": 7,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800780 - 0x76dbeb8007fc",
+            "address_range": "0x779bf7802780 - 0x779bf78027fc",
             "contiguous": true,
             "coalesced": true
         },
@@ -155,7 +155,7 @@
             "warp_id": 0,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800800 - 0x76dbeb80087c",
+            "address_range": "0x779bf7802800 - 0x779bf780287c",
             "contiguous": true,
             "coalesced": true
         },
@@ -164,7 +164,7 @@
             "warp_id": 1,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800880 - 0x76dbeb8008fc",
+            "address_range": "0x779bf7802880 - 0x779bf78028fc",
             "contiguous": true,
             "coalesced": true
         },
@@ -173,7 +173,7 @@
             "warp_id": 2,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800900 - 0x76dbeb80097c",
+            "address_range": "0x779bf7802900 - 0x779bf780297c",
             "contiguous": true,
             "coalesced": true
         },
@@ -182,7 +182,7 @@
             "warp_id": 3,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800980 - 0x76dbeb8009fc",
+            "address_range": "0x779bf7802980 - 0x779bf78029fc",
             "contiguous": true,
             "coalesced": true
         },
@@ -191,7 +191,7 @@
             "warp_id": 4,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800a00 - 0x76dbeb800a7c",
+            "address_range": "0x779bf7802a00 - 0x779bf7802a7c",
             "contiguous": true,
             "coalesced": true
         },
@@ -200,7 +200,7 @@
             "warp_id": 5,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800a80 - 0x76dbeb800afc",
+            "address_range": "0x779bf7802a80 - 0x779bf7802afc",
             "contiguous": true,
             "coalesced": true
         },
@@ -209,7 +209,7 @@
             "warp_id": 6,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800b00 - 0x76dbeb800b7c",
+            "address_range": "0x779bf7802b00 - 0x779bf7802b7c",
             "contiguous": true,
             "coalesced": true
         },
@@ -218,7 +218,7 @@
             "warp_id": 7,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800b80 - 0x76dbeb800bfc",
+            "address_range": "0x779bf7802b80 - 0x779bf7802bfc",
             "contiguous": true,
             "coalesced": true
         },
@@ -227,7 +227,7 @@
             "warp_id": 0,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800c00 - 0x76dbeb800c7c",
+            "address_range": "0x779bf7802c00 - 0x779bf7802c7c",
             "contiguous": true,
             "coalesced": true
         },
@@ -236,7 +236,7 @@
             "warp_id": 1,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800c80 - 0x76dbeb800cfc",
+            "address_range": "0x779bf7802c80 - 0x779bf7802cfc",
             "contiguous": true,
             "coalesced": true
         },
@@ -245,7 +245,7 @@
             "warp_id": 2,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800d00 - 0x76dbeb800d7c",
+            "address_range": "0x779bf7802d00 - 0x779bf7802d7c",
             "contiguous": true,
             "coalesced": true
         },
@@ -254,7 +254,7 @@
             "warp_id": 3,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800d80 - 0x76dbeb800dfc",
+            "address_range": "0x779bf7802d80 - 0x779bf7802dfc",
             "contiguous": true,
             "coalesced": true
         },
@@ -263,7 +263,7 @@
             "warp_id": 4,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800e00 - 0x76dbeb800e7c",
+            "address_range": "0x779bf7802e00 - 0x779bf7802e7c",
             "contiguous": true,
             "coalesced": true
         },
@@ -272,7 +272,7 @@
             "warp_id": 5,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800e80 - 0x76dbeb800efc",
+            "address_range": "0x779bf7802e80 - 0x779bf7802efc",
             "contiguous": true,
             "coalesced": true
         },
@@ -281,7 +281,7 @@
             "warp_id": 6,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800f00 - 0x76dbeb800f7c",
+            "address_range": "0x779bf7802f00 - 0x779bf7802f7c",
             "contiguous": true,
             "coalesced": true
         },
@@ -290,7 +290,7 @@
             "warp_id": 7,
             "num_threads": 32,
             "fully_utilized": true,
-            "address_range": "0x76dbeb800f80 - 0x76dbeb800ffc",
+            "address_range": "0x779bf7802f80 - 0x779bf7802ffc",
             "contiguous": true,
             "coalesced": true
         }
@@ -300,7 +300,7 @@
             "instruction": "st.global.u32",
             "access_type": "write",
             "access_size": 4,
-            "address_range": "0x76dbeb800000 - 0x76dbeb800ffc",
+            "address_range": "0x779bf7802000 - 0x779bf7802ffc",
             "coalesced": true,
             "address_expr": "4 * ((ctaid.x * ntid.x + tid.x)) + out",
             "stride": 4,
