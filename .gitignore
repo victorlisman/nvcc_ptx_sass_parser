@@ -175,7 +175,7 @@ cython_debug/
 
 outputs/
 ptx_code/
-sas_code/
+sass_code/
 tmp/
 
 *.json
