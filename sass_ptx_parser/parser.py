@@ -64,6 +64,7 @@ CMEM_OFFSETS = {
     0x28: "out",                      
     0x160: "out",          
     0x0: "ntid.x",                
+    0x168: "input_size",
 }
 
 def _cmem_alias(offset: int) -> str:
@@ -85,6 +86,68 @@ def parse_sass_to_ir(sass_code: str) -> List[Dict]:
                                         'compile_size', '=', 'Function')):
             continue
 
+        # Skip predicated instructions with @!PT or @P0
+        if line.startswith('@'):
+            continue
+
+        # IMAD.MOV.U32 - Load constant with MOV variant
+        m = re.match(r'IMAD\.MOV\.U32\s+R(\d+),\s*RZ,\s*RZ,\s*c\[0x0\]\[0x([0-9a-f]+)\]', line, re.I)
+        if m:
+            dst = f"r{m.group(1)}"
+            src = _cmem_alias(int(m.group(2), 16))
+            ir.append({"op": "mov.u32", "dst": dst, "src": src})
+            continue
+
+        # IMAD.MOV.U32 - Load immediate constant
+        m = re.match(r'IMAD\.MOV\.U32\s+R(\d+),\s*RZ,\s*RZ,\s*0x([0-9a-f]+)', line, re.I)
+        if m:
+            ir.append({"op": "mov.u32",
+                       "dst": f"r{m.group(1)}",
+                       "src": int(m.group(2), 16)})
+            continue
+
+        # LDC.U16 - Load constant 16-bit
+        m = re.match(r'LDC\.U16\s+R(\d+),\s*c\[0x0\]\[0x([0-9a-f]+)\]', line, re.I)
+        if m:
+            dst = f"r{m.group(1)}"
+            src = _cmem_alias(int(m.group(2), 16))
+            ir.append({"op": "mov.u16", "dst": dst, "src": src})
+            continue
+
+        # PRMT - Permute bytes (simplified - just move source)
+        m = re.match(r'PRMT\s+R(\d+),\s*R(\d+),\s*0x([0-9a-f]+),\s*RZ', line, re.I)
+        if m:
+            ir.append({"op": "mov.u32",
+                       "dst": f"r{m.group(1)}",
+                       "src": f"r{m.group(2)}"})
+            continue
+
+        # ISETP.GT.AND - Set predicate (skip for now)
+        m = re.match(r'ISETP\.(GT|NE)\.AND\s+P\d+,\s*PT,.*', line, re.I)
+        if m:
+            continue
+
+        # FSEL - Floating point select (conditional assignment)
+        m = re.match(r'FSEL\s+R(\d+),\s*RZ,\s*([0-9]+),\s*P\d+', line, re.I)
+        if m:
+            ir.append({"op": "mov.u32",
+                       "dst": f"r{m.group(1)}",
+                       "src": int(m.group(2))})
+            continue
+
+        # STG.E.SYS - Store global with cache modifiers
+        m = re.match(r'STG[\.\w]*\s+\[R(\d+)\],\s*R(\d+)', line, re.I)
+        if m:
+            ir.append({"op": "st.global.u32",
+                       "addr": f"r{m.group(1)}",
+                       "val": f"r{m.group(2)}"})
+            continue
+
+        # EXIT and BRA - Control flow (skip)
+        if re.match(r'(EXIT|BRA)', line, re.I):
+            continue
+
+        # Existing patterns...
         m = re.match(r'MOV\s+R(\d+),\s*c\[0x0\]\[0x([0-9a-f]+)\]', line, re.I)
         if m:
             dst = f"r{m.group(1)}"
@@ -115,22 +178,32 @@ def parse_sass_to_ir(sass_code: str) -> List[Dict]:
                        "src3": f"r{m.group(3)}"})
             continue
 
-        m = re.match(r'IMAD\.WIDE\s+R\d+,\s*R(\d+),\s*R(\d+),\s*c\[0x0\]\[0x160\]',
-                     line, re.I)
+        # IMAD.WIDE - Multiply-add wide (64-bit result)
+        m = re.match(r'IMAD\.WIDE\s+R(\d+),\s*R(\d+),\s*R(\d+),\s*c\[0x0\]\[0x([0-9a-f]+)\]', line, re.I)
         if m:
+            dst_reg = f"r{m.group(1)}"
+            src1_reg = f"r{m.group(2)}" 
+            src2_reg = f"r{m.group(3)}"
+            offset = int(m.group(4), 16)
+            base = _cmem_alias(offset)
             ir.extend([
-                {"op": "mul.wide.s32", "dst": "rd3",
-                 "src1": f"r{m.group(1)}", "src2": 4},
-                {"op": "add.s64", "dst": "rd4",
-                 "src1": "rd3", "src2": "out"}
+                {"op": "mul.wide.s32", "dst": dst_reg, "src1": src1_reg, "src2": src2_reg},
+                {"op": "add.s64", "dst": dst_reg, "src1": dst_reg, "src2": base}
             ])
             continue
-
+        
         m = re.match(r'STG[\.\w]*\s+\[R(\d+)\],\s*R(\d+)', line, re.I)
         if m:
             ir.append({"op": "st.global.u32",
                        "addr": "rd4",
                        "val": f"r{m.group(2)}"})
+            continue
+        
+        m = re.match(r'FSEL\s+R(\d+),\s*RZ,\s*([0-9]+),\s*P\d+', line, re.I)
+        if m:
+            ir.append({"op": "fsel",
+                       "dst": f"r{m.group(1)}",
+                       "src": int(m.group(2))})
             continue
 
     return ir

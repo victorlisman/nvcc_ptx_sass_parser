@@ -37,6 +37,20 @@ def main():
 
     addresses = simulate_launch(ir, args.grid, args.block, args.base)
     accessess = addresses.copy()
+    memory_writes = []
+
+    print(f"DEBUG: Total accesses: {len(accessess)}")
+    print(f"DEBUG: Sample access: {accessess[1234] if accessess else 'None'}")
+
+    for access in accessess:
+        if (isinstance(access, dict)) and "address" in access and "written_value" in access and access["written_value"] != "unk" and access["written_value"] is not None:
+            memory_writes.append({
+                "address": access["address"],
+                "written_value": access["written_value"],
+                "thread_id": access["globalIdx"],
+                "memory_offset": access.get("memory_offset", None)
+            })
+
     addresses = [a["address"] for a in addresses]
     footprint_info = estimate_footprint(addresses)
     ranges = coalesce_addresses(addresses)
@@ -72,8 +86,9 @@ def main():
         "block_dim_x": args.block,
         "base_address": hex(args.base),
         "num_threads": args.grid * args.block,
-        "num_warps": args.block // 32,
+        "num_warps": (args.grid * args.block) // 32,
         "warp_stats": warp_stats,
+        "memory_writes": memory_writes,
         "memory_events": [
             {
                 "instruction": "st.global.u32",
@@ -95,4 +110,5 @@ def main():
         print(f"Output written to {args.json_out}")
 
 if __name__ == "__main__":
+    print("TEST")
     main()

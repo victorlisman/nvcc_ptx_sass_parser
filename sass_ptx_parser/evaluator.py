@@ -25,5 +25,15 @@ def evaluate_instruction(instr, regs: Dict[str, Union[int, str]]):
     elif op.startswith("add.s64"):
         regs[instr["dst"]] = resolve(regs[instr["src1"]], regs) + resolve(regs[instr["src2"]], regs)
     elif op.startswith("st.global"):
-        return regs[instr["addr"]]
+        stored_value = regs.get(instr["val"], instr["val"])
+        address = regs[instr["addr"]]
+        return {"address": address, "value": stored_value}
+    elif op.startswith("fsel"):
+        global_thread_id = regs.get("ctaid.x", None)+ regs.get("ntid.x", 0) + regs.get("tid.x", 0)
+        input_value = regs.get("input_size", 0)
+
+        if global_thread_id == input_value:
+            return {"address": regs["out"], "written_value": "unk"}
+        else:
+            return {"address": regs["out"], "written_value": "unk"} 
     return None
